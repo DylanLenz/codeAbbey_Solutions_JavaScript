@@ -1,10 +1,11 @@
-//codeabbey_14 - Weighted Sum Of Digits
+//codeabbey_13 - Weighted Sum Of Digits
 /*
-input data:
+INSTRUCTIONS:
+Input Data:
 3 - number of items to be processed
 9 15 1776
 
-answer:
+Answer:
 9 11 60
 
 This program resembles more complex algorithms for calculation
@@ -17,53 +18,50 @@ each digit by its position (counting from the left, starting from 1).
  For example, given the value 1776 we calculate such weighted sum of
  digits (let us call it "wsd") as:
 wsd(1776) = 1 * 1 + 7 * 2 + 7 * 3 + 6 * 4 = 60
-
 */
+var data = "40 7 2 49922 1110034 374 461318 276 2731431 17852 3 58 48 9409 473908 6065 249176884 2313 1910778 4297 328 446 9 4 62195911 640 17312 5 269 7210466 86334 8621390 11832678 76160 29898 23 94639 165781 157835477 13529 7";
 
-/*
-Scope of program:
-1. Intake raw data.
-2. Create weightedSumOfDigits function that contains internal functions that formats
-    the rawData into a more manageable data structure.
-    a.Crete Array of Data to be processed later in program.
-    b. Remove the first cell of the array, set it aside as the numToProcess variable.
-    c. Convert Array from strings to numbers.
-    d. Create final function that weighs digits.
-    */
-var rawData = "40 7 2 49922 1110034 374 461318 276 2731431 17852 3 58 48 9409 473908 6065 249176884 2313 1910778 4297 328 446 9 4 62195911 640 17312 5 269 7210466 86334 8621390 11832678 76160 29898 23 94639 165781 157835477 13529 7";
-
-var weightedSumOfDigits = function (data){
-var answer = [];
-var format = function (string){
+var formatToArrays = function (string){
     var arrayOfNum = string.split(" ");
+    var tempArray = [];
+    arrayOfNum.splice(0,1);
     for (var i = 0; i < arrayOfNum.length; i++){//makes each string in the array a Number.
+      tempArray.push(arrayOfNum[i].split(""));
       }
-        arrayOfNum.splice(0,1);//removes first digit in array.
-    return arrayOfNum;
+    return tempArray;
   };
-data = format(data);
-console.log(data);
-/*
-Split Numbers into SubArrays of Numbers
-Multiply Digit by its self then store in memory then multipy
-next number and add initial number/total to new sume. Repeat until end of number array.
-*/
-var wsd = function (array){
-    var answer = [];
-    var extLen = array.length;
-  for(var i = 0, sum = 0; i < extLen; i++ ){
-    var intLen = array[i].length;
-    for(var j = 0; j < intLen; j++ ){
 
-      //arrayOfNum[i]=[arrayOfNum.split("")];
-      //arrayOfNum[i] = Number(arrayOfNum[i]);
-    }
-    answer.push(sum);
-    sum = 0;
-  }
+data = formatToArrays(data);
 
+var stringArrayToNumbers = function(arrayOfArrays){
+   var resultsArray = [];
+   for(var i = 0; i < arrayOfArrays.length; i++){
+      var arrayToWork = arrayOfArrays[i];
+      var intTemp = [];
+         for(var j = 0; j < arrayToWork.length; j++){
+            var n = Number(arrayToWork[j]);
+            intTemp.push(n);
+         }
+      resultsArray.push(intTemp);
+   }
+   return resultsArray;
 };
 
-return console.log(data);
-};
-weightedSumOfDigits(rawData);
+data = stringArrayToNumbers(data);
+
+var weightedSumOfDigits = function(arrayOfArrays){
+   var answer = [];
+   for(var i = 0; i < arrayOfArrays.length; i++){
+         var currentArray = arrayOfArrays[i];
+         var sumOfCurrent = 0;
+      for(var j = 0; j < currentArray.length; j++){
+         var weightCount = j + 1;
+         sumOfCurrent = sumOfCurrent + (currentArray[j] * weightCount);
+         weightCount++;
+         }
+         answer.push(sumOfCurrent);
+      }
+   return answer;
+   };
+   data = weightedSumOfDigits(data);
+   console.log(data.join(" "));
