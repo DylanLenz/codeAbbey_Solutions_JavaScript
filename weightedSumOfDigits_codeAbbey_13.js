@@ -19,12 +19,12 @@ each digit by its position (counting from the left, starting from 1).
  digits (let us call it "wsd") as:
 wsd(1776) = 1 * 1 + 7 * 2 + 7 * 3 + 6 * 4 = 60
 */
-var data = "40 7 2 49922 1110034 374 461318 276 2731431 17852 3 58 48 9409 473908 6065 249176884 2313 1910778 4297 328 446 9 4 62195911 640 17312 5 269 7210466 86334 8621390 11832678 76160 29898 23 94639 165781 157835477 13529 7";
-
+var data = "33 1130 14965 0 4 2 103813170 3295994 399 18 7918 5 14518265 2 116 207001350 43 5415203 388 2150338 1570855 9346944 66219 1635 530 359456886 65004 130 25792217 52 294 251 1036256 28";
+var totalRun;
 var formatToArrays = function (string){
     var arrayOfNum = string.split(" ");
     var tempArray = [];
-    arrayOfNum.splice(0,1);
+    totalRun = arrayOfNum.splice(0,1);
     for (var i = 0; i < arrayOfNum.length; i++){//makes each string in the array a Number.
       tempArray.push(arrayOfNum[i].split(""));
       }
@@ -65,3 +65,9 @@ var weightedSumOfDigits = function(arrayOfArrays){
    };
    data = weightedSumOfDigits(data);
    console.log(data.join(" "));
+   if(totalRun == data.length){
+      console.log("Correct run length of: " + totalRun);
+   }else{
+      console.log("Error, run length of: " + data.length);
+   }
+   
